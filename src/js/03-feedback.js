@@ -1,52 +1,59 @@
 
 import throttle from 'lodash.throttle';
 
-
-const LOCAL_STORAGE_KEY = 'feedback-form-state';
-
 const refs = {
   form: document.querySelector('.feedback-form'),
   input: document.querySelector('.feedback-form input'),
-  textarea: document.querySelector('.feedback-form  textarea'),
+  textarea: document.querySelector('.feedback-form textarea'),
 };
+
+const LOCAL_STORAGE_KEY = 'feedback-form-state';
+const store = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
 refs.form.addEventListener('input', throttle(onTextareaInput, 500));
 refs.form.addEventListener('submit', onFormSubmit);
 
 
-if(localStorage.getItem(LOCAL_STORAGE_KEY) !== null) {
-  console.log('local storage');
+if (localStorage.getItem(LOCALSTORAGE_KEY) !== null) {
+  checkLocaleStorage(store);
+}
+
+function onTextareaInput(evt) {
+
+  const {
+    elements: { email, message },
+  } = evt.currentTarget;
+
+  const values = {
+    email: email.value,
+    message: message.value,
+  };
+
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
+
 }
 
 function onFormSubmit(evt) {
   evt.preventDefault();
 
   const {
-    elements: { email, message }
+    elements: { email, message },
   } = evt.currentTarget;
 
-console.log("email", email);
-console.log("message", message);
-console.log("evt.currentTarget", evt.currentTarget);
-console.log("evt.currentTarget.value", evt.currentTarget.value);
+  const formSubmitObj = {
+    email: email.value,
+    message: message.value,
+  };
 
- evt.currentTarget.reset();
- localStorage.removeItem(LOCAL_STORAGE_KEY);
+  console.log(formSubmitObj);
+
+  evt.currentTarget.reset();
+  localStorage.clear();
 }
 
 
-function onTextareaInput(evt) {
-  const message = evt.target.value;
-
-  localStorage.setItem(LOCAL_STORAGE_KEY, message);
+function checkLocaleStorage({ email, message }) {
+  refs.input.value = email;
+  refs.textarea.value = message;
 }
 
-function populateTextarea() {
-  const savedMessage = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-  if (savedMessage) {
-    refs.textarea.value = savedMessage;
-  }
-}
-
-populateTextarea();
