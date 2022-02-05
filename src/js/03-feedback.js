@@ -2,7 +2,7 @@
 import throttle from 'lodash.throttle';
 
 
-const LOCAL_STORAGE_KEY = 'feedback-msg';
+const LOCAL_STORAGE_KEY = 'feedback-form-state';
 
 const refs = {
   form: document.querySelector('.feedback-form'),
@@ -30,11 +30,8 @@ console.log("message", message);
 console.log("evt.currentTarget", evt.currentTarget);
 console.log("evt.currentTarget.value", evt.currentTarget.value);
 
-  // console.log("send form");
-  // evt.currentTarget.reset();
-  // localStorage.removeItem(LOCAL_STORAGE_KEY);
-
- // localStorage.setItem(LOCAL_STORAGE_KEY, values);
+ evt.currentTarget.reset();
+ localStorage.removeItem(LOCAL_STORAGE_KEY);
 }
 
 
