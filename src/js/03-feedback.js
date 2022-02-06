@@ -14,7 +14,7 @@ refs.form.addEventListener('input', throttle(onTextareaInput, 500));
 refs.form.addEventListener('submit', onFormSubmit);
 
 
-if (localStorage.getItem(LOCALSTORAGE_KEY) !== null) {
+if (localStorage.getItem(LOCAL_STORAGE_KEY) !== null) {
   checkLocaleStorage(store);
 }
 
@@ -22,14 +22,15 @@ function onTextareaInput(evt) {
 
   const {
     elements: { email, message },
-  } = evt.currentTarget;
+  } = evt.currentTarget; 
+
 
   const values = {
     email: email.value,
     message: message.value,
   };
 
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
+ localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
 
 }
 
@@ -48,7 +49,6 @@ function onFormSubmit(evt) {
   console.log(formSubmitObj);
 
   evt.currentTarget.reset();
-  localStorage.clear();
 }
 
 
