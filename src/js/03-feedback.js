@@ -46,6 +46,11 @@ function onFormSubmit(evt) {
     message: message.value,
   };
 
+  if (email.value === "" || message.value === "") {
+    alert("Please fill in all the fields!");
+    evt.currentTarget.reset();
+  }
+
   console.log(formSubmitObj);
 
   evt.currentTarget.reset();
